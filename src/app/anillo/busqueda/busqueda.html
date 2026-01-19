@@ -2,8 +2,24 @@
     <div class="acciones">
         <table>
             <tr>
-                <td><button id="buscarAnillo">Buscar Anillo</button></td>
-                <td><button id="crearAnillo">Crear Anillo</button></td>
+                <td>
+                    <p-button
+                        id="buscarAnillo"
+                        label="Buscar Anillo"
+                        icon="pi pi-search"
+                        severity="secondary"
+                        [routerLink]="['/buscar']"
+                    />
+                </td>
+                <td>
+                    <p-button
+                        id="crearAnillo"
+                        label="Crear Anillo"
+                        icon="pi pi-plus"
+                        severity="success"
+                        [routerLink]="['/registro-anillo']"
+                    />
+                </td>
             </tr>
         </table>
     </div>

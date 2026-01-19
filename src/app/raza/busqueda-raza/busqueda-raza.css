@@ -1,0 +1,58 @@
+.busqueda-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.busqueda-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.busqueda {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.input-busqueda {
+  flex: 1;
+}
+
+.botones-busqueda {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.resultados {
+  margin-top: 2rem;
+}
+
+.badge-success {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.badge-danger {
+  background-color: #f44336;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.text-center {
+  text-align: center;
+  padding: 2rem;
+}
+
+.sin-resultados {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}

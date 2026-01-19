@@ -1,0 +1,86 @@
+<div class="formulario-container">
+  <h2>Registro de los Anillos de Poder</h2>
+  
+  <form [formGroup]="formulario" (ngSubmit)="enviar()" class="formulario">
+    <div class="campo-formulario">
+      <label for="nombre">Nombre del anillo</label>
+      <input 
+        pInputText 
+        id="nombre"
+        type="text" 
+        formControlName="nombre"
+        placeholder="Ej: Anillo de Nenya"
+      />
+      @if (formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched) {
+        <small class="error">El nombre es obligatorio y debe tener al menos 3 caracteres</small>
+      }
+    </div>
+
+    <div class="campo-formulario">
+      <label for="portador">Portador del anillo</label>
+      <input 
+        pInputText 
+        id="portador"
+        type="text" 
+        formControlName="portador"
+        placeholder="Ej: Galadriel"
+      />
+      @if (formulario.get('portador')?.invalid && formulario.get('portador')?.touched) {
+        <small class="error">El portador es obligatorio y debe tener al menos 3 caracteres</small>
+      }
+    </div>
+
+    <div class="campo-formulario">
+      <label for="raza">Raza del portador</label>
+      <p-select 
+        id="raza"
+        [options]="opcionesRaza" 
+        formControlName="raza"
+        placeholder="Seleccione una raza"
+        optionLabel="label"
+        optionValue="value"
+      ></p-select>
+      @if (formulario.get('raza')?.invalid && formulario.get('raza')?.touched) {
+        <small class="error">Debe seleccionar una raza</small>
+      }
+    </div>
+
+    <div class="campo-formulario">
+      <label for="poder">Poder principal del anillo</label>
+      <input 
+        pInputText 
+        id="poder"
+        type="text" 
+        formControlName="poder"
+        placeholder="Ej: Protección y preservación"
+      />
+      @if (formulario.get('poder')?.invalid && formulario.get('poder')?.touched) {
+        <small class="error">El poder es obligatorio y debe tener al menos 5 caracteres</small>
+      }
+    </div>
+
+    <div class="campo-formulario">
+      <label for="corrupcion">Nivel de corrupción: {{ formulario.get('corrupcion')?.value || 0 }}</label>
+      <p-slider 
+        id="corrupcion"
+        formControlName="corrupcion"
+        [min]="0"
+        [max]="100"
+        [step]="1"
+      ></p-slider>
+      @if (formulario.get('corrupcion')?.invalid && formulario.get('corrupcion')?.touched) {
+        <small class="error">El nivel de corrupción debe estar entre 0 y 100</small>
+      }
+    </div>
+
+    <div class="botones-formulario">
+      <p-button 
+        type="submit" 
+        label="Registrar Anillo"
+        icon="pi pi-check"
+        [disabled]="formulario.invalid"
+        severity="success"
+      ></p-button>
+    </div>
+  </form>
+</div>

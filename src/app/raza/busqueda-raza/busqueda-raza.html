@@ -1,0 +1,75 @@
+<div class="busqueda-container">
+  <h2>Buscar Razas</h2>
+  
+  <div class="busqueda">
+    <input 
+      type="text" 
+      pInputText 
+      [(ngModel)]="campoBusqueda" 
+      placeholder="Buscar por nombre, región, longevidad o descripción..."
+      (keyup.enter)="buscar()"
+      class="input-busqueda"
+    />
+    <div class="botones-busqueda">
+      <p-button 
+        label="Buscar" 
+        icon="pi pi-search" 
+        (onClick)="buscar()" 
+        severity="info"
+      ></p-button>
+      <p-button 
+        label="Limpiar" 
+        icon="pi pi-times" 
+        (onClick)="limpiar()" 
+        severity="secondary"
+      ></p-button>
+    </div>
+  </div>
+
+  <div class="resultados">
+    @if (razasFiltradas.length > 0) {
+      <p-card>
+        <p-table [value]="razasFiltradas" [paginator]="true" [rows]="5" [showCurrentPageReport]="true" 
+          currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} razas">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Longevidad</th>
+              <th>Región Principal</th>
+              <th>Afinidad Mágica</th>
+              <th>Nivel de Corrupción</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-raza>
+            <tr>
+              <td><strong>{{ raza.nombre }}</strong></td>
+              <td>{{ raza.descripcion }}</td>
+              <td>{{ raza.longevidad }}</td>
+              <td>{{ raza.regionPrincipal }}</td>
+              <td>
+                <span [class]="raza.afinidadMagica ? 'badge-success' : 'badge-danger'">
+                  {{ raza.afinidadMagica ? 'Sí' : 'No' }}
+                </span>
+              </td>
+              <td>{{ raza.nivelCorrupcion }}%</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="6" class="text-center">No se encontraron razas</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-card>
+    }
+
+    @if (razasFiltradas.length === 0 && campoBusqueda) {
+      <p-card>
+        <div class="sin-resultados">
+          <p>No se encontraron razas que coincidan con "{{ campoBusqueda }}"</p>
+        </div>
+      </p-card>
+    }
+  </div>
+</div>
