@@ -1,0 +1,12 @@
+.p-field {
+    margin-bottom: 1rem;
+}
+
+.p-field label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.ml-2 {
+    margin-left: 0.5rem;
+}

@@ -11,9 +11,9 @@ import { CardModule } from 'primeng/card';
 @Component({
   selector: 'app-busqueda-raza',
   imports: [
-    InputTextModule, 
-    FormsModule, 
-    ButtonModule, 
+    InputTextModule,
+    FormsModule,
+    ButtonModule,
     CommonModule,
     TableModule,
     CardModule
@@ -28,7 +28,7 @@ export class BusquedaRaza {
 
   buscar() {
     const termino = this.campoBusqueda.toLowerCase().trim();
-    
+
     if (!termino) {
       this.razasFiltradas = this.razas.razas;
       return;

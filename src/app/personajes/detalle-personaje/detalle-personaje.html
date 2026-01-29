@@ -1,0 +1,29 @@
+<p-card *ngIf="cargando" header="Cargando...">
+    <p>Cargando datos del personaje...</p>
+</p-card>
+
+<p-card *ngIf="!cargando" header="{{ esEditar ? 'Editar Personaje' : 'Crear Personaje' }}">
+    <form [formGroup]="form">
+        <div class="p-field">
+            <label>Nombre</label>
+            <input pInputText formControlName="nombre" />
+        </div>
+        <div class="p-field">
+            <label>Raza</label>
+            <input pInputText formControlName="raza" />
+        </div>
+        <div class="p-field">
+            <label>Fecha Nacimiento</label>
+            <input pInputText formControlName="fechaNacimiento" type="date" />
+        </div>
+        <div class="p-field">
+            <label>Nivel Corrupción</label>
+            <input pInputText formControlName="nivelCorrupcion" type="number" />
+        </div>
+        <div class="p-field">
+            <p-button label="Guardar" icon="pi pi-save" (onClick)="guardar()" [disabled]="form.invalid"></p-button>
+            <p-button label="Cancelar" icon="pi pi-times" severity="secondary" (onClick)="cancelar()"
+                class="ml-2"></p-button>
+        </div>
+    </form>
+</p-card>

@@ -1,0 +1,101 @@
+<div class="tablaPersonajes">
+    <h2>Buscar Personajes</h2>
+
+    <div class="busqueda">
+        <input
+            type="text"
+            pInputText
+            [(ngModel)]="campoBusqueda"
+            placeholder="Buscar por nombre, raza, fecha de nacimiento o nivel de corrupción..."
+            (keyup.enter)="buscar()"
+            class="input-busqueda"
+        />
+        <div class="botones-opciones">
+            <p-button
+                label="Buscar"
+                icon="pi pi-search"
+                (onClick)="buscar()"
+                severity="info"
+            />
+            <p-button
+                label="Crear Personaje"
+                icon="pi pi-plus"
+                (onClick)="crearPersonaje()"
+                severity="success"
+            />
+            <p-button
+                label="Limpiar"
+                icon="pi pi-times"
+                (onClick)="limpiar()"
+                severity="danger"
+            />
+        </div>
+    </div>
+
+    <div class="resultados">
+        @if (personajesFiltrados.length > 0) {
+        <p-card>
+            <p-table [value]="personajesFiltrados" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} personajes">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Raza</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Nivel de Corrupción</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-personaje>
+                    <tr>
+                        <td><strong>{{ personaje.nombre }}</strong></td>
+                        <td>{{ personaje.raza }}</td>
+                        <td>{{ personaje.fechaNacimiento | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ personaje.nivelCorrupcion }}%</td>
+                        <td class="text-center p-1">
+                            <p-button
+                                label="Editar"
+                                severity="secondary"
+                                size="small"
+                                text="true"
+                                pTooltip="Editar"
+                                tooltipPosition="top"
+                                class="min-w-0 px-2"
+                                (onClick)="editar(personaje.id!)"
+                            />
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="5" class="text-center">No se encontraron personajes</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+        }
+
+        @if (personajesFiltrados.length === 0 && campoBusqueda && personajes.length > 0) {
+        <p-card>
+            <div class="sin-resultados">
+            <p>No se encontraron personajes que coincidan con "{{ campoBusqueda }}"</p>
+            </div>
+        </p-card>
+        }
+
+        @if (personajes.length === 0 && !error) {
+        <p-card>
+            <div class="sin-resultados">
+            <p>Cargando personajes...</p>
+            </div>
+        </p-card>
+        }
+
+        @if (error) {
+        <p-card>
+            <div class="sin-resultados">
+            <p>{{ error }}</p>
+            </div>
+        </p-card>
+        }
+    </div>
+</div>
