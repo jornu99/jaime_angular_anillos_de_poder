@@ -1,8 +1,4 @@
-<p-card *ngIf="cargando" header="Cargando...">
-    <p>Cargando datos del personaje...</p>
-</p-card>
-
-<p-card *ngIf="!cargando" header="{{ esEditar ? 'Editar Personaje' : 'Crear Personaje' }}">
+<p-card header="{{ esEditar ? 'Editar Personaje' : 'Crear Personaje' }}">
     <form [formGroup]="form">
         <div class="p-field">
             <label>Nombre</label>
