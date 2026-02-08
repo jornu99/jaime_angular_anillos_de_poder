@@ -75,14 +75,12 @@ export class DetallePersonaje implements OnInit {
     if (this.form.valid) {
       const datos = this.form.value;
       if (this.esEditar && this.id) {
-        // Actualizar
         this.personajesService.actualizarPersonaje(this.id, datos).subscribe({
           next: () => this.router.navigate(['/personajes']),
           error: (err) => console.error('Error actualizando', err)
         });
       } else {
-        // Crear nuevo
-        this.personajesService.crearPersonaje(datos).subscribe({
+        this.personajesService.insertarPersonaje(datos).subscribe({
           next: () => this.router.navigate(['/personajes']),
           error: (err) => console.error('Error creando', err)
         });

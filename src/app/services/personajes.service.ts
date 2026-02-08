@@ -20,11 +20,23 @@ export class PersonajesService {
     return this.http.get<Personaje>(`${this.baseUrl}obtenerPersonaje/${id}`);
   }
 
-  crearPersonaje(personaje: Personaje): Observable<Personaje> {
+  insertarPersonaje(personaje: Personaje): Observable<Personaje> {
     return this.http.post<Personaje>(`${this.baseUrl}insertarPersonaje`, personaje);
   }
 
   actualizarPersonaje(id: number, personaje: Partial<Personaje>): Observable<Personaje> {
     return this.http.put<Personaje>(`${this.baseUrl}actualizarPersonaje/${id}`, personaje);
+  }
+
+  bajaLogicaPersonaje(id: number): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}bajaLogica/${id}`, {});
+  }
+
+  bajaFisica(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}bajaFisica/${id}`, {});
+  }
+
+  reactivarPersonaje(id: number): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}reactivar/${id}`, {});
   }
 }

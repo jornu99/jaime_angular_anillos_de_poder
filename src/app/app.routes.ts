@@ -15,5 +15,5 @@ export const routes: Routes = [
     { path: 'buscar-razas', component: BusquedaRaza },
     { path: 'personajes', component: BuscarPersonaje },
     { path: 'personaje/editar/:id', component: DetallePersonaje },
-    { path: 'crearPersonaje', component: DetallePersonaje },
+    { path: 'insertarPersonaje', component: DetallePersonaje },
 ];

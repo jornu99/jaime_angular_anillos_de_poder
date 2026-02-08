@@ -1,5 +1,22 @@
-.tablaPersonajes table {
-    border: 2px solid black;
-    border-radius: 5px;
-    margin: 5% auto;
+:host ::ng-deep .p-datatable .p-datatable-tbody>tr>td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead>tr>th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.p-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+td.text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }

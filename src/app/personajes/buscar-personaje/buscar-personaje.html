@@ -1,3 +1,6 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
 <div class="tablaPersonajes">
     <h2>Buscar Personajes</h2>
 
@@ -20,7 +23,7 @@
             <p-button
                 label="Crear Personaje"
                 icon="pi pi-plus"
-                (onClick)="crearPersonaje()"
+                (onClick)="insertarPersonaje()"
                 severity="success"
             />
             <p-button
@@ -35,39 +38,104 @@
     <div class="resultados">
         @if (personajesFiltrados.length > 0) {
         <p-card>
-            <p-table [value]="personajesFiltrados" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} personajes">
+            <p-table
+                [value]="personajesFiltrados"
+                [paginator]="true"
+                [rows]="10"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} personajes"
+                stripedRows
+                [loading]="cargando"
+            >
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Nombre</th>
-                        <th>Raza</th>
-                        <th>Fecha de Nacimiento</th>
-                        <th>Nivel de Corrupción</th>
+                        <th pSortableColumn="nombre" style="width:20%">Nombre <p-sortIcon field="nombre" /></th>
+                        <th pSortableColumn="raza" style="width:20%">Raza <p-sortIcon field="raza" /></th>
+                        <th pSortableColumn="fechaNacimiento" style="width:20%">Fecha de Nacimiento <p-sortIcon field="fechaNacimiento" /></th>
+                        <th pSortableColumn="nivelCorrupcion" style="width:20%">Nivel de Corrupción <p-sortIcon field="nivelCorrupcion" /></th>
+                        <th pSortableColumn="fechaBaja" style="width:20%">Fecha de Baja <p-sortIcon field="fechaBaja" /></th>
+                        <th pSortableColumn="estado" style="width:20%">Estado <p-sortIcon field="estado" /></th>
+                        <th></th>
                     </tr>
                 </ng-template>
+
                 <ng-template pTemplate="body" let-personaje>
                     <tr>
                         <td><strong>{{ personaje.nombre }}</strong></td>
                         <td>{{ personaje.raza }}</td>
                         <td>{{ personaje.fechaNacimiento | date:'dd/MM/yyyy' }}</td>
-                        <td>{{ personaje.nivelCorrupcion }}%</td>
+                        <td>
+                            <p-badge
+                                [value]="personaje.nivelCorrupcion + '%'"
+                                [severity]="severidadCorrupcion(personaje.nivelCorrupcion)"
+                                size="xlarge"
+                            />
+                        </td>
+                        <td>
+                            {{ personaje.fechaBaja ? (personaje.fechaBaja | date:'dd/MM/yyyy') : '-' }}
+                        </td>
+                        <td>
+                            <p-badge
+                                [value]="personaje.estado"
+                                [severity]="personaje.estado === 'ACTIVO'
+                                    ? 'success'
+                                    : 'warn'"
+                                size="small"
+                            />
+                        </td>
                         <td class="text-center p-1">
                             <p-button
-                                label="Editar"
+                                icon="pi pi-pencil"
                                 severity="secondary"
                                 size="small"
-                                text="true"
+                                rounded="true"
                                 pTooltip="Editar"
                                 tooltipPosition="top"
-                                class="min-w-0 px-2"
+                                class="min-w-0 px-2 mr-1"
                                 (onClick)="editar(personaje.id!)"
                             />
+
+                            <p-button
+                                icon="pi pi-trash"
+                                severity="danger"
+                                size="small"
+                                rounded="true"
+                                class="min-w-0 px-2 mr-1"
+                                pTooltip="Baja física (borrar definitivamente)"
+                                tooltipPosition="top"
+                                (onClick)="bajaFisica(personaje)">
+                            </p-button>
+
+                            <p-button
+                                *ngIf="personaje.estado === 'ACTIVO'"
+                                icon="pi pi-ban"
+                                severity="warn"
+                                size="small"
+                                rounded="true"
+                                class="min-w-0 px-2 mr-1"
+                                pTooltip="Baja lógica (dar de baja)"
+                                tooltipPosition="left"
+                                (onClick)="bajaLogicaPersonaje(personaje)">
+                            </p-button>
+
+                            <p-button
+                                *ngIf="personaje.estado === 'INACTIVO'"
+                                icon="pi pi-refresh"
+                                severity="success"
+                                size="small"
+                                rounded="true"
+                                class="min-w-0 px-2 mr-1"
+                                pTooltip="Reactivar (dar de alta)"
+                                tooltipPosition="left"
+                                (onClick)="reactivarPersonaje(personaje)">
+                            </p-button>
                         </td>
                     </tr>
                 </ng-template>
+
                 <ng-template pTemplate="emptymessage">
                     <tr>
-                        <td colspan="5" class="text-center">No se encontraron personajes</td>
+                        <td colspan="7" class="text-center">No se encontraron personajes</td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -77,15 +145,7 @@
         @if (personajesFiltrados.length === 0 && campoBusqueda && personajes.length > 0) {
         <p-card>
             <div class="sin-resultados">
-            <p>No se encontraron personajes que coincidan con "{{ campoBusqueda }}"</p>
-            </div>
-        </p-card>
-        }
-
-        @if (personajes.length === 0 && !error) {
-        <p-card>
-            <div class="sin-resultados">
-            <p>Cargando personajes...</p>
+                <p>No se encontraron personajes que coincidan con "{{ campoBusqueda }}"</p>
             </div>
         </p-card>
         }
@@ -93,7 +153,7 @@
         @if (error) {
         <p-card>
             <div class="sin-resultados">
-            <p>{{ error }}</p>
+                <p>{{ error }}</p>
             </div>
         </p-card>
         }
