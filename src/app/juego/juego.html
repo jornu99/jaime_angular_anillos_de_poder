@@ -1,0 +1,137 @@
+<div class="tablaJuego">
+    <h2>Test de Conocimientos — El Señor de los Anillos</h2>
+
+    <section class="juego-stats">
+        <p-card class="card-tema">
+            <ng-template pTemplate="header">
+                <span class="card-header-text">Mis Estadísticas</span>
+            </ng-template>
+            <div class="stats-grid">
+                <div class="stat-item stat-victorias">
+                    <i class="pi pi-trophy"></i>
+                    <div>
+                        <span class="stat-numero">{{ totales.victorias }}</span>
+                        <span class="stat-label">Victorias</span>
+                    </div>
+                </div>
+                <div class="stat-item stat-derrotas">
+                    <i class="pi pi-times"></i>
+                    <div>
+                        <span class="stat-numero">{{ totales.derrotas }}</span>
+                        <span class="stat-label">Derrotas</span>
+                    </div>
+                </div>
+                <div class="stat-item stat-totales">
+                    <i class="pi pi-list"></i>
+                    <div>
+                        <span class="stat-numero">{{ totales.totales }}</span>
+                        <span class="stat-label">Partidas</span>
+                    </div>
+                </div>
+            </div>
+        </p-card>
+    </section>
+
+    @if (!partidaId) {
+    <section class="juego-inicio">
+        <p-button label="Empezar Partida"
+            icon="pi pi-play"
+            (onClick)="empezar()"
+            [loading]="cargandoEmpezar"
+            [disabled]="cargandoEmpezar"
+            size="large"
+            class="btn-tema btn-empezar">
+        </p-button>
+    </section>
+    }
+
+    @if (partidaId && !juegoTerminado) {
+    <section class="juego-partida">
+        <div class="racha-bar">
+            <span class="racha-label">Racha:</span>
+            <span class="racha-valor">{{ racha }}/5</span>
+            <div class="racha-progress">
+                <div class="racha-fill" [style.width.%]="(racha/5)*100"></div>
+            </div>
+        </div>
+
+        <p-card class="card-tema card-pregunta">
+            <ng-template pTemplate="header">
+                <span class="card-header-text">Pregunta</span>
+            </ng-template>
+            <p class="pregunta-texto">{{ preguntaActual?.pregunta }}</p>
+        </p-card>
+
+        <div class="respuestas-grid">
+            @for (resp of respuestas; track $index; let i = $index) {
+            <p-button
+                [label]="resp"
+                class="btn-tema btn-respuesta"
+                [disabled]="procesando"
+                [loading]="procesando"
+                size="large"
+                (onClick)="responder(i)">
+            </p-button>
+            }
+        </div>
+    </section>
+    }
+
+    @if (juegoTerminado) {
+    <section class="juego-resultado">
+        <div class="resultado-box" [class.victoria]="victoria" [class.derrota]="derrota">
+            @if (victoria) {
+            <i class="pi pi-trophy resultado-icono"></i>
+            <h3>¡Victoria!</h3>
+            <p>Has acertado 5 de 5. ¡Dominas la Tierra Media!</p>
+            } @else {
+            <i class="pi pi-times-circle resultado-icono"></i>
+            <h3>Partida terminada</h3>
+            <p>Sigue entrenando para la próxima.</p>
+            }
+            <p-button label="Nueva Partida"
+                icon="pi pi-refresh"
+                (onClick)="empezar()"
+                size="large"
+                class="btn-tema">
+            </p-button>
+        </div>
+    </section>
+    }
+
+    <section class="juego-historial">
+        <p-card class="card-tema">
+            <ng-template pTemplate="header">
+                <span class="card-header-text">Historial reciente</span>
+            </ng-template>
+            @if (historial.length) {
+            <p-table [value]="historial.slice(0,10)"
+                [tableStyle]="{'min-width':'400px'}"
+                stripedRows
+                styleClass="tabla-tema">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width:60%">Fecha</th>
+                        <th style="width:40%">Resultado</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-partida>
+                    <tr>
+                        <td>{{ partida.fecha }}</td>
+                        <td>
+                            <span class="badge-tema" [class.victoria]="partida.victorias > 0" [class.derrota]="partida.victorias === 0">
+                                {{ partida.victorias > 0 ? 'VICTORIA' : 'DERROTA' }}
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            } @else {
+            <div class="sin-historial">
+                <i class="pi pi-inbox"></i>
+                <p>Juega tu primera partida para ver el historial aquí.</p>
+            </div>
+            }
+        </p-card>
+    </section>
+</div>

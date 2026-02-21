@@ -1,0 +1,95 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<div class="tablaPortadores">
+    <h2>Buscar Portadores</h2>
+
+    <div class="busqueda">
+        <input
+            type="text"
+            pInputText
+            [(ngModel)]="campoBusqueda"
+            placeholder="Buscar por nombre, raza, fecha de nacimiento o nivel de corrupción..."
+            (keyup.enter)="buscar()"
+            class="input-busqueda"
+        />
+        <div class="botones-opciones">
+            <p-button
+                label="Buscar"
+                icon="pi pi-search"
+                (onClick)="buscar()"
+                severity="info"
+            />
+            <p-button
+                label="Limpiar"
+                icon="pi pi-times"
+                (onClick)="limpiar()"
+                severity="danger"
+            />
+        </div>
+    </div>
+
+    <div class="resultados">
+        @if (portadoresFiltrados.length > 0) {
+        <p-card>
+            <p-table
+                [value]="portadoresFiltrados"
+                [paginator]="true"
+                [rows]="10"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} portadores"
+                stripedRows
+                [loading]="cargando"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="personaje.nombre" style="width:20%">Id Personaje <p-sortIcon field="personaje.nombre" /></th>
+                        <th pSortableColumn="anillo.nombre" style="width:20%">Id Anillo <p-sortIcon field="anillo.nombre" /></th>
+                        <th pSortableColumn="estado" style="width:20%">Estado <p-sortIcon field="estado" /></th>
+                        <th pSortableColumn="fechaInicio" style="width:20%">Fecha de Inicio <p-sortIcon field="fechaInicio" /></th>
+                        <th pSortableColumn="fechaFin" style="width:20%">Fecha de Fin <p-sortIcon field="fechaFin" /></th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-portador>
+                    <tr>
+                        <td><strong>{{ portador.personaje?.nombre || portador.personaje?.id }}</strong></td>
+                        <td>{{ portador.anillo?.nombre || portador.anillo?.id }}</td>
+                        <td>
+                            <p-badge
+                                [value]="portador.estado ? 'ACTIVO' : 'INACTIVO'"
+                                [severity]="portador.estado ? 'success' : 'warn'"
+                                size="small"
+                            />
+                        </td>
+                        <td>{{ portador.fechaInicio | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ portador.fechaFin ? (portador.fechaFin | date:'dd/MM/yyyy') : '-' }}</td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="7" class="text-center">No se encontraron portadores</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+        }
+
+        @if (portadoresFiltrados.length === 0 && campoBusqueda && portadores.length > 0) {
+        <p-card>
+            <div class="sin-resultados">
+                <p>No se encontraron portadores que coincidan con "{{ campoBusqueda }}"</p>
+            </div>
+        </p-card>
+        }
+
+        @if (error) {
+        <p-card>
+            <div class="sin-resultados">
+                <p>{{ error }}</p>
+            </div>
+        </p-card>
+        }
+    </div>
+</div>

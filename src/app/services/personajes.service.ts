@@ -8,35 +8,35 @@ import { Personaje } from '../interfaces/personaje';
   providedIn: 'root',
 })
 export class PersonajesService {
-  private baseUrl = environment.apiESDLA;
+  private apiESDLA = environment.apiESDLA;
 
   constructor(private http: HttpClient) { }
 
   obtenerPersonajes(): Observable<Personaje[]> {
-    return this.http.get<Personaje[]>(`${this.baseUrl}listaPersonajes`);
+    return this.http.get<Personaje[]>(`${this.apiESDLA}listaPersonajes`);
   }
 
   obtenerPersonaje(id: number): Observable<Personaje> {
-    return this.http.get<Personaje>(`${this.baseUrl}obtenerPersonaje/${id}`);
+    return this.http.get<Personaje>(`${this.apiESDLA}obtenerPersonaje/${id}`);
   }
 
   insertarPersonaje(personaje: Personaje): Observable<Personaje> {
-    return this.http.post<Personaje>(`${this.baseUrl}insertarPersonaje`, personaje);
+    return this.http.post<Personaje>(`${this.apiESDLA}insertarPersonaje`, personaje);
   }
 
   actualizarPersonaje(id: number, personaje: Partial<Personaje>): Observable<Personaje> {
-    return this.http.put<Personaje>(`${this.baseUrl}actualizarPersonaje/${id}`, personaje);
+    return this.http.put<Personaje>(`${this.apiESDLA}actualizarPersonaje/${id}`, personaje);
   }
 
   bajaLogicaPersonaje(id: number): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}bajaLogica/${id}`, {});
+    return this.http.put<void>(`${this.apiESDLA}bajaLogica/${id}`, {});
   }
 
   bajaFisica(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}bajaFisica/${id}`, {});
+    return this.http.delete<void>(`${this.apiESDLA}bajaFisica/${id}`, {});
   }
 
   reactivarPersonaje(id: number): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}reactivar/${id}`, {});
+    return this.http.put<void>(`${this.apiESDLA}reactivar/${id}`, {});
   }
 }

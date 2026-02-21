@@ -1,0 +1,298 @@
+:root {
+  --juego-dorado: #c9aa71;
+  --juego-dorado-oscuro: #a88b4a;
+  --juego-fondo: #f5f0e6;
+  --juego-card: bisque;
+  --juego-borde: 2px solid var(--juego-dorado);
+  --juego-texto: #1a1a1a;
+  --juego-sombra: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tablaJuego {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  color: var(--juego-texto);
+}
+
+.tablaJuego h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  letter-spacing: 1px;
+  color: var(--juego-texto);
+  border-bottom: var(--juego-borde);
+  padding-bottom: 0.75rem;
+}
+
+.card-tema {
+  border: var(--juego-borde) !important;
+  border-radius: 8px !important;
+  background: var(--juego-card) !important;
+  box-shadow: var(--juego-sombra);
+}
+
+.card-tema .card-header-text,
+:host ::ng-deep .card-tema .p-card-header {
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: var(--juego-dorado) !important;
+  padding: 0.75rem 1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+}
+
+:host ::ng-deep .card-tema .p-card-body {
+  padding: 1.25rem !important;
+}
+
+.btn-tema,
+:host ::ng-deep .btn-tema.p-button {
+  background-color: transparent !important;
+  border: 2px solid var(--juego-dorado) !important;
+  color: var(--juego-dorado) !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-tema:hover:not(:disabled),
+:host ::ng-deep .btn-tema.p-button:not(:disabled):hover {
+  background-color: var(--juego-dorado) !important;
+  border-color: var(--juego-dorado) !important;
+  color: #000 !important;
+}
+
+.btn-tema:disabled,
+:host ::ng-deep .btn-tema.p-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-empezar,
+:host ::ng-deep .btn-empezar.p-button {
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.juego-stats {
+  margin-bottom: 1.5rem;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--juego-fondo);
+  border-radius: 8px;
+  border: 1px solid var(--juego-dorado);
+  flex: 1;
+  min-width: 120px;
+}
+
+.stat-item i {
+  font-size: 1.75rem;
+}
+
+.stat-item .stat-numero {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--juego-texto);
+}
+
+.stat-item .stat-label {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.stat-victorias i { color: var(--juego-dorado-oscuro); }
+.stat-derrotas i { color: #8b4513; }
+.stat-totales i { color: var(--juego-dorado); }
+
+.juego-inicio {
+  margin-bottom: 1.5rem;
+}
+
+.juego-partida {
+  margin-bottom: 1.5rem;
+}
+
+.racha-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.racha-label {
+  font-weight: 600;
+  color: var(--juego-texto);
+}
+
+.racha-valor {
+  font-weight: 700;
+  color: var(--juego-dorado-oscuro);
+  min-width: 2.5rem;
+}
+
+.racha-progress {
+  flex: 1;
+  height: 12px;
+  background: var(--juego-fondo);
+  border: 1px solid var(--juego-dorado);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.racha-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--juego-dorado), var(--juego-dorado-oscuro));
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.card-pregunta {
+  margin-bottom: 1rem;
+}
+
+.pregunta-texto {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin: 0;
+  text-align: center;
+}
+
+.respuestas-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.btn-respuesta {
+  padding: 1rem 1.25rem !important;
+  text-align: center;
+  font-size: 1rem;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .respuestas-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.juego-resultado {
+  margin-bottom: 1.5rem;
+}
+
+.resultado-box {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 12px;
+  border: var(--juego-borde);
+  background: var(--juego-fondo);
+}
+
+.resultado-box.victoria {
+  border-color: var(--juego-dorado);
+  background: linear-gradient(180deg, rgba(201, 170, 113, 0.15) 0%, var(--juego-fondo) 100%);
+}
+
+.resultado-box.derrota {
+  border-color: #8b4513;
+  background: linear-gradient(180deg, rgba(139, 69, 19, 0.08) 0%, var(--juego-fondo) 100%);
+}
+
+.resultado-icono {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.resultado-box.victoria .resultado-icono {
+  color: var(--juego-dorado-oscuro);
+}
+
+.resultado-box.derrota .resultado-icono {
+  color: #8b4513;
+}
+
+.resultado-box h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: var(--juego-texto);
+}
+
+.resultado-box p {
+  margin: 0 0 1.25rem 0;
+  color: #555;
+}
+
+.juego-historial {
+  margin-top: 1.5rem;
+}
+
+:host ::ng-deep .tabla-tema .p-datatable-thead > tr > th {
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: var(--juego-dorado) !important;
+  border-color: var(--juego-dorado) !important;
+  text-align: center;
+}
+
+:host ::ng-deep .tabla-tema .p-datatable-tbody > tr > td {
+  text-align: center;
+  background: var(--juego-fondo);
+}
+
+:host ::ng-deep .tabla-tema .p-datatable-tbody > tr:nth-child(even) > td {
+  background: rgba(201, 170, 113, 0.12);
+}
+
+.badge-tema {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.badge-tema.victoria {
+  background: rgb(32, 150, 0);
+  color:rgb(255, 255, 255);
+  border: 1px solid var(--juego-dorado);
+}
+
+.badge-tema.derrota {
+  background: rgb(150, 0, 0);
+  color:rgb(255, 255, 255);
+  border: 1px solid #8b4513;
+}
+
+.sin-historial {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.sin-historial i {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.75rem;
+  opacity: 0.6;
+}
+
+.sin-historial p {
+  margin: 0;
+  font-size: 1rem;
+}

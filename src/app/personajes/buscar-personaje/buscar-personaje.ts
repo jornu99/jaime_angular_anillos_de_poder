@@ -41,7 +41,6 @@ import { Personaje } from '../../interfaces/personaje';
   ]
 })
 export class BuscarPersonaje implements OnInit {
-
   personajes: Personaje[] = [];
   personajesFiltrados: Personaje[] = [];
   campoBusqueda: string = '';
@@ -49,7 +48,7 @@ export class BuscarPersonaje implements OnInit {
   cargando: boolean = false;
 
   constructor(
-    private personajeService: PersonajesService,
+    private personajesService: PersonajesService,
     private cdr: ChangeDetectorRef,
     private router: Router,
     private messageService: MessageService,
@@ -63,7 +62,7 @@ export class BuscarPersonaje implements OnInit {
   cargarPersonajes(): void {
     this.cargando = true;
     this.error = '';
-    this.personajeService.obtenerPersonajes().subscribe({
+    this.personajesService.obtenerPersonajes().subscribe({
       next: (data: Personaje[]) => {
         console.log('Personajes cargados:', data);
         this.personajes = data.map(p => ({
@@ -152,7 +151,7 @@ export class BuscarPersonaje implements OnInit {
       acceptLabel: 'Aceptar',
       rejectLabel: 'Cancelar',
       accept: () => {
-        this.personajeService.bajaFisica(personaje.id!).subscribe({
+        this.personajesService.bajaFisica(personaje.id!).subscribe({
           next: () => {
             this.messageService.add({
               severity: 'success',
@@ -183,7 +182,7 @@ export class BuscarPersonaje implements OnInit {
       acceptLabel: 'Aceptar',
       rejectLabel: 'Cancelar',
       accept: () => {
-        this.personajeService.bajaLogicaPersonaje(personaje.id!).subscribe({
+        this.personajesService.bajaLogicaPersonaje(personaje.id!).subscribe({
           next: () => {
             this.messageService.add({
               severity: 'success',
@@ -214,7 +213,7 @@ export class BuscarPersonaje implements OnInit {
       acceptLabel: 'Aceptar',
       rejectLabel: 'Cancelar',
       accept: () => {
-        this.personajeService.reactivarPersonaje(personaje.id!).subscribe({
+        this.personajesService.reactivarPersonaje(personaje.id!).subscribe({
           next: () => {
             this.messageService.add({
               severity: 'success',

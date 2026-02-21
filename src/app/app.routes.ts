@@ -6,14 +6,23 @@ import { RegistroAnillo } from './anillo/registro-anillo/registro-anillo';
 import { BusquedaRaza } from './raza/busqueda-raza/busqueda-raza';
 import { BuscarPersonaje } from './personajes/buscar-personaje/buscar-personaje';
 import { DetallePersonaje } from './personajes/detalle-personaje/detalle-personaje';
+import { Juego } from './juego/juego';
+import { Portadores } from './portadores/portadores';
 
 export const routes: Routes = [
-    { path: 'detalle', component: Detalle },
     { path: 'buscar', component: Busqueda },
-    { path: 'detalleRaza', component: DetalleRaza },
+    { path: 'detalle', component: Detalle },
     { path: 'registro-anillo', component: RegistroAnillo },
+
     { path: 'buscar-razas', component: BusquedaRaza },
+    { path: 'detalleRaza', component: DetalleRaza },
+
     { path: 'personajes', component: BuscarPersonaje },
     { path: 'personaje/editar/:id', component: DetallePersonaje },
     { path: 'insertarPersonaje', component: DetallePersonaje },
+
+    { path: 'portadores', component: Portadores },
+
+    { path: 'juego', component: Juego },
+
 ];
